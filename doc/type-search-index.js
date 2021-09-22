@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"laboral","l":"CalculaNominas"},{"p":"laboral","l":"Empleado"},{"p":"laboral","l":"Nomina"},{"p":"laboral","l":"Persona"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"laboral","l":"CalculaNominas"},{"p":"laboral","l":"DatosNoCorrectosException"},{"p":"laboral","l":"Empleado"},{"p":"laboral","l":"Nomina"},{"p":"laboral","l":"Persona"}];updateSearchResults();
