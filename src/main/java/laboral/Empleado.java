@@ -23,16 +23,16 @@ public class Empleado extends Persona{
 		this.categoria = categoria;
 		this.anyos = anyos;
 		if(dni.length() > 9 || dni.length() < 9) {
-			throw new DatosNoCorrectosException("El dni debe ser de 9 caracteres");
+			throw new DatosNoCorrectosException("Datos no correctos");
 		}
 		if(sexo != 'M' && sexo != 'F') {
-			throw new DatosNoCorrectosException("El sexo solo puede ser M ó F");
+			throw new DatosNoCorrectosException("Datos no correctos");
 		}
 		if(categoria < 1 || categoria > 10) {
-			throw new DatosNoCorrectosException("La categoría debe estar entre 1 y 10");
+			throw new DatosNoCorrectosException("Datos no correctos");
 		}
 		if(anyos < 0) {
-			throw new DatosNoCorrectosException("Los años trabajados no pueden ser números negativos");
+			throw new DatosNoCorrectosException("Datos no correctos");
 		}
 	}
 	
