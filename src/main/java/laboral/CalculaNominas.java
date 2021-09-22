@@ -3,15 +3,16 @@ package laboral;
 public class CalculaNominas {
 
 	public static void main(String[] args) {
-		Empleado james = new Empleado("James Cosling", "32000032G", 'M', 4, 7);
-		Empleado ada = new Empleado("Ada Lovelace", "32000031R", 'F');
-		
-		escribe(james, ada);
-		
-		ada.incrAnyo();
-		james.setCategoria(9);
-		
-		escribe(james, ada);
+		try {
+			Empleado james = new Empleado("James Cosling", "32000032G", 'M', 4, 7);
+			Empleado ada = new Empleado("Ada Lovelace", "32000031R", 'F');
+			escribe(james, ada);
+			ada.incrAnyo();
+			james.setCategoria(9);
+			escribe(james, ada);
+		} catch (DatosNoCorrectosException ex) {
+			System.out.println(ex.getMessage());
+		}
 	}
 	
 	private static void escribe(Empleado emp1, Empleado emp2) {
