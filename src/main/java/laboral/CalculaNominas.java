@@ -29,7 +29,9 @@ public class CalculaNominas {
 		File archivo = null;
 	    FileReader fr = null;
 	    BufferedReader br = null;
-		ArrayList<String> listaEmpleados = new ArrayList<>();
+		ArrayList<String[]> listaCamposEmpleados = new ArrayList<>();
+		String[] listaSueldos;
+		Empleado emp;
 		
 	    try {
 	        archivo = new File ("/home/luiruirom/eclipse-workspace/pruebadwes/src/main/java/laboral/empleados.txt");
@@ -37,10 +39,16 @@ public class CalculaNominas {
 	        br = new BufferedReader(fr);
 	        
 	        String linea;
-	        while((linea=br.readLine())!=null)
-	           System.out.println(linea);
-	     }
-	     catch(Exception e){
+	        while((linea=br.readLine())!=null) {
+	        	listaSueldos = new String [2];
+	        	String[] empleadoDatos = linea.split(",");
+        		emp = new Empleado(empleadoDatos[0], empleadoDatos[1], empleadoDatos[2].charAt(0), Integer.parseInt(empleadoDatos[3]), Integer.parseInt(empleadoDatos[4]));
+        		listaSueldos[0] = empleadoDatos[1];
+        		listaSueldos[1] = String.valueOf(Nomina.sueldo(emp));
+ 		        listaCamposEmpleados.add(listaSueldos);
+ 		        
+	        }
+	     }catch(Exception e){
 	        e.printStackTrace();
 	     }finally{
 	        try{                    
@@ -54,7 +62,12 @@ public class CalculaNominas {
 	    
 	    try {
 	        BufferedWriter out = null;
-	        out = new BufferedWriter(new FileWriter("sueldos.dat"));                                 
+	        out = new BufferedWriter(new FileWriter("sueldos.dat")); 
+	        Iterator<String[]> iterador = listaCamposEmpleados.iterator();
+		    while(iterador.hasNext()) {
+		    	String[] siguienteLinea = iterador.next();
+		    	out.write(siguienteLinea[0] + "," + siguienteLinea[1] + "\n");
+		    }
 	        out.flush();
 	        out.close();
 	    } catch (FileNotFoundException e) {
@@ -64,6 +77,9 @@ public class CalculaNominas {
 	        System.out.println("ERROR al escribir en el fichero");
 	        return;
 	    }
+	    
+	    
+	    
 	}
 	
 	/**
@@ -72,11 +88,10 @@ public class CalculaNominas {
 	 * @param emp2 segundo empleado para mostrar sus datos
 	 */
 	private static void escribe(Empleado emp1, Empleado emp2) {
-		Nomina calculadorNomina = new Nomina();
 		emp1.imprime();
-		System.out.println("Sueldo --> " + calculadorNomina.sueldo(emp1));
+		System.out.println("Sueldo --> " + Nomina.sueldo(emp1));
 		emp2.imprime();
-		System.out.println("Sueldo --> " + calculadorNomina.sueldo(emp2));
+		System.out.println("Sueldo --> " + Nomina.sueldo(emp2));
 		
 	}
 }

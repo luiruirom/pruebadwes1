@@ -14,10 +14,12 @@ public class Nomina {
 	
 	/**
 	 * Método para obtener el sueldo de un empleado teniendo en cuenta su categoría y sus años trabajados
+	 * Método estático para no tener que crear un objeto dentro de la clase CalculaNominas al leer el archivo y así evitar
+	 * sobrecarga de cómputo del programa
 	 * @param emp empleado que recibe el método para calcular el sueldo de un empleado
 	 * @return sueldoEmpleado
 	 */
-	public int sueldo(Empleado emp) {
+	public static int sueldo(Empleado emp) {
 		int sueldoEmpleado;
 		sueldoEmpleado = SUELDO_BASE[emp.getCategoria() - 1] + (5000 * emp.anyos);
 		return sueldoEmpleado;
