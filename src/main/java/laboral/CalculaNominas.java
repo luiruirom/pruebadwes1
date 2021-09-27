@@ -1,6 +1,7 @@
 package laboral;
 
 import java.io.*;
+import java.sql.*;
 import java.util.*;
 /**
  * Clase main con un método para imprimir los datos de los empleados y con un método main que prueba los métodos de todas las clases
@@ -14,6 +15,13 @@ public class CalculaNominas {
 	 */
 	public static void main(String[] args) {
 		
+		try {
+			altaEmpleado("Sergio", "32000037F", 'M', 1, 1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		/* Parte 1
 		 * try {
 			Empleado james = new Empleado("James Cosling", "32000032G", 'M', 4, 7);
@@ -26,6 +34,8 @@ public class CalculaNominas {
 			System.out.println(ex.getMessage());
 		} 
 		 */
+		
+		/* Ejercicio 1 parte 2
 		File archivo = null;
 	    FileReader fr = null;
 	    BufferedReader br = null;
@@ -77,11 +87,9 @@ public class CalculaNominas {
 	        System.out.println("ERROR al escribir en el fichero");
 	        return;
 	    }
-	    
-	    
-	    
+	 */   
 	}
-	
+		
 	/**
 	 * Método que imprime por pantalla los datos de dos empleados, incluido su nómina
 	 * @param emp1 primer empleado para mostrar sus datos
@@ -91,7 +99,34 @@ public class CalculaNominas {
 		emp1.imprime();
 		System.out.println("Sueldo --> " + Nomina.sueldo(emp1));
 		emp2.imprime();
-		System.out.println("Sueldo --> " + Nomina.sueldo(emp2));
-		
+		System.out.println("Sueldo --> " + Nomina.sueldo(emp2));	
 	}
+	
+	private static void altaEmpleado(String nombre, String dni, char sexo, int categoria, int anyos) throws SQLException {
+			int sueldoEmp = 0;
+			try {
+				Class.forName("com.mysql.jdbc.Driver").newInstance();
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				Empleado emp = new Empleado(nombre, dni, sexo, categoria, anyos);
+				sueldoEmp = Nomina.sueldo(emp);
+			} catch (DatosNoCorrectosException e) {
+				System.out.println(e.getMessage());
+			}
+			
+			Connection con = null;
+			String sURL = "jdbc:mysql://localhost:3306/laboral";
+			con = DriverManager.getConnection(sURL,"luiruirom","Luiruirom_99");
+	
+		try (PreparedStatement stmt = con.prepareStatement("INSERT INTO laboral.Empleados VALUES ('" + nombre + "', '" + dni + "',' " + sexo + "', " + categoria + ", " + anyos + ");"
+				+ "INSERT INTO laboral.Nominas VALUES ('" + dni + "', " + sueldoEmp + ")")){
+			ResultSet rs = stmt.executeQuery();
+
+			} catch (SQLException sqle) { 
+			  System.out.println("Error en la ejecución " + sqle.getErrorCode() + " " + sqle.getMessage());    
+			}
+		}
 }
