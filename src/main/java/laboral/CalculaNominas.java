@@ -104,9 +104,10 @@ public class CalculaNominas {
 	
 	private static void altaEmpleado(String nombre, String dni, char sexo, int categoria, int anyos) throws SQLException {
 			int sueldoEmp = 0;
+			
 			try {
-				Class.forName("com.mysql.jdbc.Driver").newInstance();
-			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e1) {
+				Class.forName("com.mysql.jdbc.Driver");
+			} catch (ClassNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
